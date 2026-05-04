@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="예약하기 - 빔스테틱의원" description="원하시는 날짜와 시간에 맞춰 프리미엄 시술을 예약하세요.">
+	<section style="background: linear-gradient(135deg, var(--surface-bg), #fff); padding: 80px 20px; text-align: center; border-bottom: 1px solid var(--surface-border);">
+		<h1 style="font-size: 3rem; margin-bottom: 20px; font-weight: 300;">빠른 <span style="font-weight: 700;" class="gold-text">예약하기</span></h1>
+		<p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+			고객님의 소중한 시간을 위해 사전 예약제로 운영됩니다.<br />
+			원하시는 일정과 시술을 선택해 주세요.
+		</p>
+	</section>
+
+	<section style="padding: 80px 20px; max-width: 800px; margin: 0 auto;">
+		<form id="reservation-form" class="glass" style="padding: 50px; border-radius: 8px;">
+			
+			<!-- Date Selection -->
+			<div style="margin-bottom: 40px;">
+				<h3 style="font-size: 1.3rem; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid var(--surface-border); padding-bottom: 10px;">1. 날짜 선택</h3>
+				<input type="date" id="res-date" required style="width: 100%; padding: 25px 20px; border: 2px solid var(--surface-border); border-radius: 8px; font-size: 1.5rem; font-family: inherit; outline: none; transition: border-color 0.2s; background-color: #faf9f6; color: var(--text-primary); cursor: pointer; text-align: center;" />
+			</div>
+
+			<!-- Time Selection -->
+			<div style="margin-bottom: 40px;">
+				<h3 style="font-size: 1.3rem; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid var(--surface-border); padding-bottom: 10px;">2. 시간 선택</h3>
+				<div id="time-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;">
+					{Array.from({ length: 19 }, (_, i) => {
+						const hour = Math.floor(i / 2) + 10;
+						const minute = i % 2 === 0 ? '00' : '30';
+						const time = `${hour}:${minute}`;
+						return (
+							<label class="time-label">
+								<input type="radio" name="res_time" value={time} style="display: none;" />
+								<span class="time-btn">{time}</span>
+							</label>
+						);
+					})}
+				</div>
+			</div>
+
+			<!-- Procedure Selection -->
+			<div style="margin-bottom: 40px;">
+				<h3 style="font-size: 1.3rem; margin-bottom: 20px; font-weight: 600; border-bottom: 2px solid var(--surface-border); padding-bottom: 10px;">3. 시술 선택</h3>
+				
+				<div style="display: flex; flex-direction: column; gap: 30px;">
+					<div>
+						<h4 style="margin-bottom: 15px; color: var(--text-secondary); font-size: 1rem; font-weight: 600;">레이저 리프팅</h4>
+						<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="울쎄라" style="display: none;" /><span class="sub-btn">울쎄라</span></label>
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="써마지" style="display: none;" /><span class="sub-btn">써마지</span></label>
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="온다" style="display: none;" /><span class="sub-btn">온다</span></label>
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="티타늄" style="display: none;" /><span class="sub-btn">티타늄</span></label>
+						</div>
+					</div>
+					<div>
+						<h4 style="margin-bottom: 15px; color: var(--text-secondary); font-size: 1rem; font-weight: 600;">쁘띠 시술</h4>
+						<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="보톡스" style="display: none;" /><span class="sub-btn">보톡스</span></label>
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="필러" style="display: none;" /><span class="sub-btn">필러</span></label>
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="스킨부스터" style="display: none;" /><span class="sub-btn">스킨부스터</span></label>
+						</div>
+					</div>
+					<div>
+						<h4 style="margin-bottom: 15px; color: var(--text-secondary); font-size: 1rem; font-weight: 600;">피부 토닝</h4>
+						<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+							<label class="category-label"><input type="checkbox" name="sub_procedure" value="레이저 토닝" style="display: none;" /><span class="sub-btn">레이저 토닝</span></label>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" id="res-procedure" required />
+			</div>
+
+			<!-- Submit -->
+			<div style="text-align: center; margin-top: 50px;">
+				<button type="submit" style="width: 100%; padding: 18px; background: var(--accent-primary); color: white; border: none; border-radius: 4px; font-weight: 600; font-size: 1.2rem; cursor: pointer; transition: background 0.3s;">예약 신청하기</button>
+			</div>
+		</form>
+	</section>
+</Layout>
+
+<style>
+	/* Time Button Styles */
+	.time-btn {
+		padding: 12px;
+		text-align: center;
+		border: 1px solid var(--surface-border);
+		border-radius: 4px;
+		background: white;
+		cursor: pointer;
+		font-size: 0.95rem;
+		transition: all 0.2s;
+		color: var(--text-primary);
+	}
+	.time-btn:hover {
+		border-color: var(--accent-primary);
+		color: var(--accent-primary);
+	}
+	input[type="radio"]:checked + .time-btn {
+		background: var(--accent-primary);
+		color: white;
+		border-color: var(--accent-primary);
+	}
+
+	/* Category Button Styles */
+	.category-btn, .sub-btn {
+		display: inline-block;
+		padding: 12px 24px;
+		border: 1px solid var(--surface-border);
+		border-radius: 30px;
+		background: white;
+		cursor: pointer;
+		font-size: 0.95rem;
+		transition: all 0.2s;
+		color: var(--text-primary);
+	}
+	input[type="radio"]:checked + .category-btn,
+	input[type="radio"]:checked + .sub-btn,
+	input[type="checkbox"]:checked + .sub-btn {
+		background: var(--accent-primary);
+		color: white;
+		border-color: var(--accent-primary);
+	}
+	
+	/* Date input styles */
+	input[type="date"]:focus {
+		border-color: var(--accent-primary);
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		// 1. Set min date to today for the date picker
+		const dateInput = document.getElementById('res-date');
+		const today = new Date().toISOString().split('T')[0];
+		if(dateInput) dateInput.setAttribute('min', today);
+
+		// 2. Time slots are now generated via Astro SSR
+
+		// 3. Handle Procedure Selection (Multiple Checkboxes)
+		const procedureCheckboxes = document.querySelectorAll('input[name="sub_procedure"]');
+		const procedureInput = document.getElementById('res-procedure');
+
+		procedureCheckboxes.forEach(checkbox => {
+			checkbox.addEventListener('change', () => {
+				const selected = Array.from(procedureCheckboxes)
+					.filter(cb => cb.checked)
+					.map(cb => cb.value);
+				if(procedureInput) procedureInput.value = selected.join(', ');
+			});
+		});
+
+		// 4. Form Submission
+		const form = document.getElementById('reservation-form');
+		if(form) {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const dateInput = document.getElementById('res-date');
+				const timeRadio = document.querySelector('input[name="res_time"]:checked');
+				const procInput = document.getElementById('res-procedure');
+
+				const date = dateInput ? dateInput.value : '';
+				const time = timeRadio ? timeRadio.value : '';
+				const proc = procInput ? procInput.value : '';
+
+				if (!time) {
+					alert('시간을 선택해주세요.');
+					return;
+				}
+				if (!proc) {
+					alert('상세 시술을 한 개 이상 선택해주세요.');
+					return;
+				}
+
+				alert(`예약이 접수되었습니다!\n\n날짜: ${date}\n시간: ${time}\n시술: ${proc}\n\n상담원이 곧 확정 안내 연락을 드릴 예정입니다.`);
+			});
+		}
+	});
+</script>
