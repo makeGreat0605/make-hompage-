@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+  --bg-color: #ffffff;
+  --surface-color: #fdfcf9;
+  --surface-border: #e5e1d8;
+  --accent-primary: #c5a059;
+  --accent-secondary: #8e7341;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --font-main: 'Noto Sans KR', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+/* Glassmorphism Utility (Light) */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+}
+
+/* Gold Text */
+.gold-text {
+  color: var(--accent-primary);
+}
+
+/* Premium Button */
+.btn-premium {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--accent-primary);
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+  transition: var(--transition-smooth);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-premium:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Section Spacing */
+section {
+  padding: 80px 20px;
+}
+

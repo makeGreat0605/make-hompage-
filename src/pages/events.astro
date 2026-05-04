@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const events = await getCollection('events');
+// Sort by publish date descending
+const sortedEvents = events.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+---
+
+<Layout title="이벤트 - 예쁨주의 쁨의원" description="쁨의원의 특별한 혜택과 이벤트를 확인하세요.">
+	<section style="background: #f9f9f9; min-height: 100vh; padding-top: 40px;">
+		<div style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+			<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 30px;">
+				<a href="/" style="color: var(--text-secondary);">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+				</a>
+				<h2 style="font-size: 1.2rem; font-weight: 700;">이벤트</h2>
+			</div>
+
+			<div style="display: flex; flex-direction: column; gap: 40px; margin-bottom: 100px;">
+				{sortedEvents.map(event => (
+					<div style="cursor: pointer;">
+						<div style={`background: ${event.data.color}; color: ${event.data.textColor}; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 16/9; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center;`}>
+							{event.data.badge && (
+								<div style="position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.1); padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 700;">
+									{event.data.badge}
+								</div>
+							)}
+							<h3 style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 20px; font-weight: 900; letter-spacing: -0.02em;">
+								{event.data.title.split('\n').map((line, i) => (
+									<span key={i}>{line}<br/></span>
+								))}
+							</h3>
+							<p style="font-size: 0.95rem; opacity: 0.9; max-width: 400px; line-height: 1.4;">
+								{event.data.description}
+							</p>
+						</div>
+						<div style="margin-top: 15px;">
+							<h4 style="font-size: 1rem; margin-bottom: 5px;">{event.data.title}</h4>
+							<p style="font-size: 0.85rem; color: var(--text-secondary);">
+								{event.data.publishDate.replace(/-/g, '.')} ~ {event.data.endDate?.replace(/-/g, '.')}
+							</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+</Layout>

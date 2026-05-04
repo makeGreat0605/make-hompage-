@@ -1,0 +1,151 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "A premium Astro web application." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header
+			style="background: white; border-bottom: 1px solid var(--surface-border); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100;"
+		>
+			<a
+				href="/"
+				style="font-weight: 900; font-size: 1.4rem; letter-spacing: -0.05em; text-decoration: none;"
+				class="gold-text"
+			>
+				빔스테틱의원2호점
+			</a>
+			<nav>
+				<ul
+					style="display: flex; gap: 40px; list-style: none; font-weight: 500; font-size: 0.95rem;"
+				>
+					<li><a href="/events">이벤트</a></li>
+					<li><a href="/reservation">예약</a></li>
+					<li><a href="/location">병원 찾아오는 길</a></li>
+				</ul>
+			</nav>
+			<div style="display: flex; gap: 20px; align-items: center;">
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					style="color: var(--text-secondary); cursor: pointer;"
+					><circle cx="11" cy="11" r="8"></circle><path
+						d="m21 21-4.3-4.3"></path>
+				</svg>
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					style="color: var(--text-secondary); cursor: pointer;"
+					><path
+						d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"
+					></path>
+				</svg>
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					style="color: var(--text-secondary); cursor: pointer;"
+					><line x1="3" y1="12" x2="21" y2="12"></line><line
+						x1="3"
+						y1="6"
+						x2="21"
+						y2="6"></line><line x1="3" y1="18" x2="21" y2="18"
+					></line>
+				</svg>
+			</div>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer
+			style="padding: 80px 20px; background: #f9f9f9; border-top: 1px solid var(--surface-border);"
+		>
+			<div
+				style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;"
+			>
+				<div>
+					<div
+						style="font-weight: 900; font-size: 1.2rem;"
+						class="gold-text"
+					>
+						빔스테틱의원 2호점
+					</div>
+					<p
+						style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 20px;"
+					>
+						개인별 맞춤형 아름다움을 선사하는 프리미엄 메디컬
+						에스테틱 브랜드입니다.
+					</p>
+				</div>
+				<div>
+					<h4 style="margin-bottom: 20px; font-size: 1rem;">
+						진료안내
+					</h4>
+					<p
+						style="color: var(--text-secondary); font-size: 0.85rem;"
+					>
+						평일: 10:00 - 20:00<br />
+						토요일: 10:00 - 17:00<br />
+						일요일/공휴일 휴진
+					</p>
+				</div>
+				<div>
+					<h4 style="margin-bottom: 20px; font-size: 1rem;">
+						고객센터
+					</h4>
+					<p
+						style="color: var(--accent-primary); font-size: 1.5rem; font-weight: 700;"
+					>
+						1588-0000
+					</p>
+					<p
+						style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 10px;"
+					>
+						카카오톡 상담: @빔스테틱2호점
+					</p>
+				</div>
+			</div>
+			<div
+				style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #eee; text-align: center;"
+			>
+				<p style="color: var(--text-secondary); font-size: 0.75rem;">
+					&copy; 2026 빔스테틱의원2호점. All Rights Reserved.
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>
